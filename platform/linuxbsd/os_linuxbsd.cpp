@@ -35,6 +35,7 @@
 #include "core/io/certs_compressed.gen.h"
 #include "core/io/dir_access.h"
 #include "main/main.h"
+#include "modules/godot_tracy/tracy/public/tracy/Tracy.hpp"
 #include "servers/display_server.h"
 #include "servers/rendering_server.h"
 
@@ -975,6 +976,8 @@ void OS_LinuxBSD::run() {
 	//uint64_t frame=0;
 
 	while (true) {
+		FrameMark;
+		ZoneScopedN("Main");
 		DisplayServer::get_singleton()->process_events(); // get rid of pending events
 #ifdef JOYDEV_ENABLED
 		joypad->process_joypads();
